@@ -1,0 +1,39 @@
+def baseball():
+        import csv
+        import numpy
+        import matplotlib.pyplot as plt #or when starting ipython, do the pylab thing
+
+        ABA = []
+        ABN = []
+        OBPA = []
+        OBPN = []
+        areaA = []
+        areaN = []
+
+        with open('americanL.csv','r') as AL:
+                readerA = csv.reader(AL)
+                readerA.next()
+                for r in readerA:
+                        if r[5] > 100:
+                                ABA.append(r[5])
+                                OBPA.append(r[20])
+                                value = numpy.pi * (float(r[10]))**2
+                                areaA.append(value)
+                
+        with open('nationalL.csv','r') as NL:
+                readerN = csv.reader(NL)
+                readerN.next()
+                for r in readerN:
+                        if r[5] > 100.0:
+                                ABN.append(r[5])
+                                OBPN.append(r[20])
+                                value = numpy.pi * (float(r[10]))**2
+                                areaN.append(value)
+                
+
+        plt.scatter(ABA, OBPA, s = areaA, c = ['red'], alpha = 0.5)
+        plt.scatter(ABN, OBPN, s = areaN, c = ['blue'], alpha = 0.5)
+        plt.xlabel('At Bats')
+        plt.ylabel('On Base Percentage')
+        plt.title('AB vs. OBP')
+        plt.show()
